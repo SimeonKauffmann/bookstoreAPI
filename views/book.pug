@@ -1,0 +1,39 @@
+doctype html 
+html 
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title=book.Title
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
+  body
+    div(style='margin:30px 15vw;display:flex;flex-direction:column;')
+      a(href="/") 
+        button.btn.btn-primary Home
+      a(href=`/book/${book.ISBN}/edit`) 
+        button.btn.btn-warning Edit
+      h1=book.Title 
+      img(src=`https://image.bokus.com/images/${book.ISBN}`, alt="book image", srcset="")
+      
+      div(style='float:right;')
+      
+        ul 
+          each value, key in book
+            li= key +': ' + value
+        if stores.length > 0
+          table
+            thead 
+                tr
+                    each value, key in stores[0]
+                        
+                        td(style='font-weight:bold;')= key
+                          
+            tbody 
+                each store in stores
+                  tr
+                        each value in store 
+                            
+                              td(style='text-align:right;')= value
+        else
+          p Not available in any stores right now
+        

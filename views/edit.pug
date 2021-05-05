@@ -1,0 +1,48 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= 'Edit ' + book.Title
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
+  body 
+    
+
+    h1= `Edit: ${book.Title}`
+
+    p#warning(style='color:red;')
+
+    form#editForm(method='post' action=`/book`)
+      label(for='title') Title: 
+      input(name='title' value=`${book.Title}` required)
+      br
+      label(for='author') Author:
+      select(name='author' id='authors' multiple)
+      
+        each value in authors
+          if(bookAuthors.find(bookAuthor => value.ID === bookAuthor.authorsID)) 
+            option(value=`${value.ID}` selected)=`${value.FirstName} ${value.LastName}`
+          else 
+            option(value=`${value.ID}` )=`${value.FirstName} ${value.LastName}`
+      br
+      label(for='language') Language: 
+      input(name='language' value=`${book.Language}` id='language')
+      br
+      label(for='pages') Pages: 
+      input(name='pages' value=`${book.Pages}` type='number' min='0')
+      br
+      label(for='price') Price: 
+      input(name='price' value=`${book.Price}` type='number' min='0')
+      br
+      
+     
+      input(name='isbn' value=`${book.ISBN}` type='hidden')
+      br
+      input(type='submit' value='Save Changes' id='submit')
+    
+    a(href=`/book/${book.ISBN}`) 
+        button.btn.btn-primary Back
+
+  script
+      include ../public/form.js

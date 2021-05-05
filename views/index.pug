@@ -1,0 +1,33 @@
+doctype html 
+html 
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Awesome Book Store
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous")
+    script(src="https://use.fontawesome.com/1e16512faf.js")
+    script(src="https://kit.fontawesome.com/7ec334b6de.js" crossorigin="anonymous")
+    
+  body 
+  
+    
+    if books.length > 0
+        table.table.table-hover 
+            thead 
+                tr
+                  each value, key in books[0]
+                      td(style='font-weight:bold;' onclick=`location.href='/?sortColumn=${key}'`)= key
+                        if key === column
+                          i.fas.fa-arrow-down
+            tbody 
+                each book in books
+                      tr(onclick=`location.href='/book/${book.ISBN}'`)
+                        each value, key in book 
+                              - if(key === 'Author') value = value.replace(/,.*/, ', m.fl')
+                              td= value
+
+    else 
+        br
+        p Sorry, no books 
+
